@@ -1,7 +1,7 @@
 {
   "name": "faster-sidebar",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "dist/faster-sidebar.es.js",
   "module": "dist/faster-sidebar.es.js",
@@ -21,8 +21,8 @@
     "@mui/icons-material": "7.0.2",
     "@mui/material": "7.0.2",
     "faster-router-pwa": "1.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/js": "9.22.0",
