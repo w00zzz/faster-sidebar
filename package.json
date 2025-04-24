@@ -20,7 +20,7 @@
     "@emotion/styled": "11.11.0",
     "@mui/icons-material": "7.0.2",
     "@mui/material": "7.0.2",
-    "faster-router-pwa": "1.0.0",
+    "faster-router-pwa": "1.1.2",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
