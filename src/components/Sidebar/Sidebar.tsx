@@ -54,7 +54,7 @@ const Sidebar = ({ routes, title, logoPath, navigate,width }: SidebarProps) => {
           position: "relative",
         }}
       >
-        <SidebarHeader isExpanded={isExpanded} logoPath={logoPath} />
+        {logoPath && (<SidebarHeader isExpanded={isExpanded} logoPath={logoPath} />)}
         <SidebarContent
           isExpanded={isExpanded}
           routes={routes}
