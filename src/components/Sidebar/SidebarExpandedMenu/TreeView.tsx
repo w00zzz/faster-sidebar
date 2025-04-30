@@ -73,44 +73,20 @@ import {
   
               return (
                 <li key={key} style={{ position: "relative" }}>
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      left: level > 1 ? "11px" : "5px",
-                      top: 0,
-                      bottom: 0,
-                      width: "20px",
-                      zIndex: 0,
-                      // backgroundColor: "red",
-                    }}
-                  >
-                    {level > 0 && !last && (
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          left: 0,
-                          top: 0,
-                          bottom: 0,
-                          borderLeft: "2px solid gray",
-                          zIndex: 0,
-                        }}
-                      />
-                    )}
-                    {hasParent && (
-                      <Box
-                        sx={{
-                          borderLeft: "2px solid gray",
-                          left: 0,
-                          borderBottomLeftRadius: "10px",
-                          borderBottom: "2px solid gray",
-                          width: "16px",
-                          height: first ? "30px" : "120%",
-                          transform: "translate(0, -50%)",
-                          position: "absolute",
-                        }}
-                      />
-                    )}
-                  </Box>
+                  {level > 0 && !last && (
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        // left: `${marginLeft * 6}px`,
+                        left: level > 1 ? "11px" : "5px",
+  
+                        top: 0,
+                        bottom: 0,
+                        borderLeft: "2px solid gray",
+                        zIndex: 0,
+                      }}
+                    />
+                  )}
                   <ListItemButton
                     onClick={handleItemClick}
                     sx={{
@@ -118,6 +94,7 @@ import {
                       position: "relative",
                       zIndex: 1,
                       backgroundColor: isOpen ? "#f0f4f8 !important" : "",
+  
                       borderRadius: "8px",
                       mb: 0.5,
                       py: 0.5,
@@ -125,8 +102,24 @@ import {
                       "&:hover": {
                         backgroundColor: isOpen ? "#e3eaf2" : "#f8f9fa",
                       },
+                      
                     }}
                   >
+                    {hasParent && (
+                      <Box
+                        sx={{
+                          borderLeft: "2px solid gray",
+                          left: level > 1 ? "11px" : "5px",
+
+                          borderBottomLeftRadius: "10px ",
+                          borderBottom: "2px solid gray",
+                          width: "16px",
+                          height: first ? "30px" : "120%",
+                          transform: "translate(-91%, -50%)",
+                          position: "absolute",
+                        }}
+                      />
+                    )}
                     {Icon && (
                       <ListItemIcon sx={{ minWidth: "35px" }}>
                         <Icon />
