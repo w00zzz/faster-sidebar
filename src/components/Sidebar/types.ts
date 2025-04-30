@@ -16,6 +16,11 @@ export interface SubMenuProps {
   level?: number;
   parentPath?: string;
   title?: string;
+  parentRoute?: {
+    title: string;
+    path: string;
+  };
+  isMobile?: boolean;
 }
 
 export interface PopoverItemProps {

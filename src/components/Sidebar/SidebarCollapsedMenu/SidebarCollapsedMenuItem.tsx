@@ -1,4 +1,4 @@
-import { useState, MouseEvent, useRef } from "react";
+import { useState, MouseEvent, useRef, useEffect } from "react";
 import {
   Box,
   ListItemButton,
@@ -19,6 +19,23 @@ const SidebarCollapsedMenuItem = ({
 }: PopoverItemProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const timeoutRef = useRef<any>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  
+  // Detect if device is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    };
+    
+    // Initial check
+    checkIfMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   const handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -41,9 +58,16 @@ const SidebarCollapsedMenuItem = ({
   const open = Boolean(anchorEl);
 
   const listItemButtonProps = {
-    onClick: handleClick,
-    onMouseEnter: handlePopoverOpen,
-    onMouseLeave: handlePopoverClose,
+    onClick: (event: MouseEvent<HTMLElement>) => {
+      // On mobile, if there are subroutes, open the submenu instead of navigating
+      if (isMobile && routes?.subPath) {
+        handlePopoverOpen(event);
+      } else {
+        handleClick();
+      }
+    },
+    onMouseEnter: !isMobile ? handlePopoverOpen : undefined,
+    onMouseLeave: !isMobile ? handlePopoverClose : undefined,
     sx: {
       width: 65,
       height: 65,
@@ -139,6 +163,11 @@ const SidebarCollapsedMenuItem = ({
               onClose={handlePopoverClose}
               level={0}
               title={title}
+              parentRoute={{
+                title: title || '',
+                path: path || ''
+              }}
+              isMobile={isMobile}
               />
               </>
         )}

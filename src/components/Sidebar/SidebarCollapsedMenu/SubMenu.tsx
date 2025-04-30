@@ -17,6 +17,8 @@ const SubMenu: FC<SubMenuProps> = ({
   level = 0,
   title,
   parentPath="",
+  parentRoute,
+  isMobile = false,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [activeSubPath, setActiveSubPath] = useState<string | null>(null);
@@ -42,6 +44,7 @@ const SubMenu: FC<SubMenuProps> = ({
 
   return (
     <Box sx={{ pt: 1, display: "flex", flexDirection: "column" }}>
+      {/* Display header with title */}
       {parentTitle ? (
         <>
           <ListSubheader
@@ -50,7 +53,6 @@ const SubMenu: FC<SubMenuProps> = ({
               color: "#9DA4AE",
               fontWeight: 500,
               fontSize: "14px",
-              // padding: "8px 16px",
               lineHeight: "24px",
               userSelect: "none",
               paddingTop: "0px",
@@ -69,7 +71,6 @@ const SubMenu: FC<SubMenuProps> = ({
               color: "#9DA4AE",
               fontWeight: 500,
               fontSize: "14px",
-              // padding: "8px 16px",
               lineHeight: "24px",
               userSelect: "none",
               paddingTop: "0px",
@@ -81,6 +82,37 @@ const SubMenu: FC<SubMenuProps> = ({
           <Divider sx={{ my: 0.5 }} />
         </>
       )}
+      
+      {/* Add parent route as first clickable item if available */}
+      {parentRoute && (
+        <ListItemButton
+          onClick={() => {
+            onItemClick(parentRoute.path);
+            onClose();
+          }}
+          sx={{
+            width: "auto",
+            minWidth: "120px",
+            height: "40px",
+            borderRadius: "8px",
+            backgroundColor: "#ffffff",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "0 16px",
+            margin: 0,
+            transition: "all 0.2s ease-in-out",
+            "&:hover": {
+              backgroundColor: "#f5f5f5",
+            },
+            color: "#637381",
+            fontSize: "14px",
+            fontWeight: 700, // Make it bold to indicate it's the parent route
+          }}
+        >
+          <span>{parentRoute.title}</span>
+        </ListItemButton>
+      )}
       {Object.entries(routes).map(
         ([key, route]: [string, any]) =>
           route.title && (
@@ -89,17 +121,21 @@ const SubMenu: FC<SubMenuProps> = ({
                 onClick={(e: MouseEvent<HTMLElement>) => {
                   if (route.subPath) {
                     handleSubMenuOpen(e, key);
+                    // If on mobile and has subpaths, only open submenu, don't navigate
+                    if (!isMobile) {
+                      onItemClick(`${parentPath}${route.path}`);
+                    }
                   } else {
                     onItemClick(`${parentPath}${route.path}`);
                     onClose();
                   }
                 }}
-                onMouseEnter={(e: MouseEvent<HTMLElement>) => {
+                onMouseEnter={!isMobile ? (e: MouseEvent<HTMLElement>) => {
                   if (route.subPath) {
                     handleSubMenuOpen(e, key);
                   }
-                }}
-                onMouseLeave={handleSubMenuClose}
+                } : undefined}
+                onMouseLeave={!isMobile ? handleSubMenuClose : undefined}
                 sx={{
                   width: "auto",
                   minWidth: "120px",
@@ -167,6 +203,11 @@ const SubMenu: FC<SubMenuProps> = ({
                     parentTitle={route.title}
                     parentPath={`${parentPath}${route.path}`}
                     level={level + 1}
+                    parentRoute={{
+                      title: route.title,
+                      path: `${parentPath}${route.path}`
+                    }}
+                    isMobile={isMobile}
                   />
                 </Popover>
               )}
