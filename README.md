@@ -52,3 +52,79 @@ export default tseslint.config({
   },
 })
 ```
+
+# Faster Sidebar
+
+Bienvenido a `faster-sidebar`, la solución definitiva para integrar barras laterales en aplicaciones web modernas. Diseñado con React, TypeScript y Vite, este módulo ofrece una experiencia de usuario excepcional y una integración sin complicaciones.
+
+## ¿Por Qué Elegir `faster-sidebar`?
+
+### Rendimiento Inigualable
+- **Optimización con Vite:** Disfruta de una recarga en caliente (HMR) rápida y eficiente que acelera el desarrollo y mejora la productividad.
+- **Componentes Reactivos:** Utiliza React para crear interfaces de usuario dinámicas y receptivas que se adaptan a cualquier dispositivo.
+
+### Diseño Elegante y Personalizable
+- **Estilo Moderno:** Ofrece un diseño limpio y profesional que se integra perfectamente con la estética de cualquier proyecto.
+- **Personalización Completa:** Ajusta colores, tamaños y comportamientos para que la barra lateral se alinee con la identidad visual de tu marca.
+
+### Integración Sencilla y Rápida
+- **Componentes Reutilizables:** Importa y utiliza componentes como `Sidebar`, `SidebarCollapsedMenu`, y `SubMenu` en minutos, reduciendo el tiempo de desarrollo.
+- **Compatibilidad Total:** Diseñado para funcionar sin problemas con proyectos que ya utilizan React y TypeScript.
+
+## Ventajas de Usar `faster-sidebar` en Futuras Implementaciones
+
+### Ahorro de Tiempo y Recursos
+- **Desarrollo Eficiente:** Evita reinventar la rueda con cada nuevo proyecto. Reutiliza componentes probados y optimizados para ahorrar tiempo y esfuerzo.
+- **Mantenimiento Simplificado:** Centraliza la lógica de la barra lateral en un único módulo, facilitando actualizaciones y correcciones de errores.
+
+### Consistencia y Escalabilidad
+- **Experiencia de Usuario Coherente:** Asegura una interfaz uniforme en todos tus proyectos, mejorando la experiencia del usuario.
+- **Preparado para el Futuro:** Ideal para proyectos que esperan crecer y evolucionar, permitiendo una fácil expansión de la funcionalidad de la barra lateral.
+
+## Cómo Comenzar
+
+1. **Instalación Rápida:**
+   ```bash
+   npm install faster-sidebar
+   ```
+
+2. **Integración en tu Proyecto:**
+   ```jsx
+   import { Sidebar } from 'faster-sidebar';
+
+   const App = () => (
+     <Sidebar>
+       {/* Tu contenido aquí */}
+     </Sidebar>
+   );
+   ```
+
+3. **Personalización:**
+   Ajusta las propiedades de los componentes para que se adapten a tus necesidades específicas.
+
+## Contribuye y Mejora
+
+Estamos emocionados de recibir contribuciones de la comunidad. Si tienes ideas para mejorar `faster-sidebar`, ¡no dudes en hacer un fork del repositorio y enviar un pull request!
+
+## Detalles Técnicos
+
+El módulo `faster-sidebar` incluye componentes que detectan automáticamente si el dispositivo es móvil, ajustando el comportamiento de la barra lateral en consecuencia. Por ejemplo, el componente `SidebarCollapsedMenuItem` utiliza un efecto para verificar el tamaño de la pantalla y ajustar la interfaz de usuario.
+
+```tsx
+useEffect(() => {
+  const checkIfMobile = () => {
+    setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+  };
+  
+  // Initial check
+  checkIfMobile();
+  
+  // Add event listener for window resize
+  window.addEventListener('resize', checkIfMobile);
+  
+  // Cleanup
+  return () => window.removeEventListener('resize', checkIfMobile);
+}, []);
+```
+
+Este enfoque asegura que la barra lateral se comporte de manera óptima en cualquier dispositivo, mejorando la experiencia del usuario.
